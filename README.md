@@ -12,5 +12,3 @@
 
 * так и маркированные;
 
-
-[Документация по markdown разметке](http://gitlabnto/help/user/markdown#wiki-specific-markdown)
