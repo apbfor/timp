@@ -22,6 +22,13 @@ TEST_CASE("checksize") {
 
 }
 
+TEST_CASE("sum"){
+    int a, b;
+    a = 4;
+    b =5 ;
+    REQUIRE(a+b==19);
+}
+
 TEST_CASE("find_elem") {
     LinkedList<double> doubleList;
     doubleList.PushFront(6.18);
@@ -135,4 +142,27 @@ TEST_CASE("Pop_Back") {
     }
 
 }
+
+
+TEST_CASE("CLEAR") {
+    LinkedList<int> intList;
+
+    intList.PushBack(5);
+    intList.PushFront(12);
+
+    intList.Clear();
+
+    SECTION("size") {
+        REQUIRE(intList.GetSize()==0);
+    }
+
+    SECTION("works well") {
+
+        intList.PushBack(67);
+        intList.PushFront(912);
+
+        REQUIRE(intList.PopBack()==67);
+    }
+}
+
 
