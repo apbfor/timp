@@ -14,7 +14,7 @@
 #include <map>
 #include <iostream>
 
-// на случай внезапной отладки
+//для отладки закомментировать
 #define NODEBUG
 
 using namespace std;
@@ -35,15 +35,15 @@ size_t b_m_substring(const string &str, const string &subStr) {
     size_t suffix_length = 0;
     for ( ; subStr[subStr.size()-1] == subStr[subStr.size()-suffix_length-1]; ++suffix_length);
     for ( size_t i = 0; i < subStr.size() - 1; ++i )
-        bad_symbols[subStr[i]] = subStr.size() - i - 1 - suffix_length;
-    bad_symbols[subStr.at(subStr.size() - 1)] = 1;
+        bad_symbols[subStr[i]] = subStr.size() - i - 1 - suffix_length; bad_symbols[subStr.at(subStr.size() - 1)] = 1;
 
     // Эвристика совпавших суффиксов
     // для каждого [k]+суффикс ищем наиболее правое (->) [^k]+суффикс ранее в строке
     vector<size_t> suffix_shift(subStr.size(), subStr.size());
     for ( size_t i = 0; i < subStr.size(); ++i) {
         for ( size_t j = 1; j <= subStr.size() - i ; ++j ) {
-            bool prev_neq = (subStr.size() - i - j - 1) < 0 or subStr[subStr.size() - i - 1] != subStr[subStr.size() - i - j - 1];
+            bool prev_neq = (subStr.size() - i - j - 1) < 0 or
+                    subStr[subStr.size() - i - 1] != subStr[subStr.size() - i - j - 1];
             bool range_eq = (i == 0) or equal(subStr.end() - i, subStr.end(), subStr.end() - i - j, subStr.end() - j);
             if (prev_neq && range_eq) {
                 suffix_shift[i] = j;

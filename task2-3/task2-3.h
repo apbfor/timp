@@ -13,6 +13,6 @@
 
 using namespace std;
 
-size_t simple_substring(const string &str, const string &subStr);
+size_t simple_indexOf(const string &str, const string &subStr);
 size_t b_m_substring(const string &str, const string &subStr);
 
