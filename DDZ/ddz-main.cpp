@@ -61,7 +61,6 @@ int RabinKarpMatch(char *T,char *P,int d,int q)
 
 int main(int argc, char* argv[]){
 
-    int indexOf;
     int d=1, q=1000;
     char T[200];
     char P[100];
@@ -69,7 +68,7 @@ int main(int argc, char* argv[]){
     cin >> T;
     cout<<"Enter substring"<<endl;
     cin >> P;
-    indexOf= RabinKarpMatch(T,P,d, q);
+    int indexOf= RabinKarpMatch(T,P,d, q);
     if(indexOf)
         cout<<"Substr found in "<<indexOf<<" position";
     else
