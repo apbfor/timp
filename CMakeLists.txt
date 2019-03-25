@@ -25,3 +25,8 @@ add_executable(task2-3_main task2-3/task2-3.cpp task2-3/task2-3_main.cpp)
 # task2-4
 add_executable(task2-4_test task2-4/task2-4.cpp task2-4/task2-4_test.cpp)
 add_executable(task2-4_main task2-4/task2-4.cpp task2-4/task2-4_main.cpp)
+
+
+#ddz
+add_executable(ddz_test DDZ/ddz.cpp DDZ/ddz-test.cpp DDZ/ddz.h)
+add_executable(ddz_main DDZ/ddz.cpp DDZ/ddz-main.cpp DDZ/ddz.h)
