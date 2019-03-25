@@ -19,7 +19,7 @@
 
 using namespace std;
 
-size_t simple_substring(const string &str, const string &subStr) {
+size_t simple_indexOf(const string &str, const string &subStr) {
     for (auto it = str.begin(); it != str.end(); ++it)
         if (string(it, it+subStr.size()) == subStr)
             return distance(str.begin(), it);
@@ -33,9 +33,15 @@ size_t b_m_substring(const string &str, const string &subStr) {
     // мы можем сместиться, если он не совпадет
     vector<size_t> bad_symbols(256, 1);
     size_t suffix_length = 0;
+
+    //увеличиваем длину суффикса до тех пор, пока последний символ подстроки
+    // совпадает с subStr[subStr.size()-suffix_length-1]
     for ( ; subStr[subStr.size()-1] == subStr[subStr.size()-suffix_length-1]; ++suffix_length);
+
+
     for ( size_t i = 0; i < subStr.size() - 1; ++i )
-        bad_symbols[subStr[i]] = subStr.size() - i - 1 - suffix_length; bad_symbols[subStr.at(subStr.size() - 1)] = 1;
+        bad_symbols[subStr[i]] = subStr.size() - i - 1 - suffix_length;
+        bad_symbols[subStr.at(subStr.size() - 1)] = 1;
 
     // Эвристика совпавших суффиксов
     // для каждого [k]+суффикс ищем наиболее правое (->) [^k]+суффикс ранее в строке
@@ -51,7 +57,6 @@ size_t b_m_substring(const string &str, const string &subStr) {
             }
         }
     }
-
 
 
 #ifndef NODEBUG

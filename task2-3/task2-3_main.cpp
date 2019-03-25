@@ -19,6 +19,18 @@ static const char aplphabet[] =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
         "abcdefghijklmnopqrstuvwxyz";
 
+
+void benchmark(const string str, const string subStr){
+    auto simple_start = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
+    simple_indexOf(str,subStr);
+    auto simple_end = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
+
+    auto bm_start = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
+    b_m_substring(str,subStr);
+    auto bm_end = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
+    cout << "[+][+] b_m/simple = " <<float((bm_end - bm_start).count())/(simple_end-simple_start).count() << endl;
+}
+
 // генерирует кейс <строка, подстрока, позиция>, служит для быстрого заполнения списка рандомными строками/подстроками
 tuple<string, string, size_t> generate_test(size_t max_string_length, size_t max_substring_length) {
     size_t text_length = rand() % max_string_length + 1; //задаем длину для строки
@@ -69,14 +81,24 @@ void benchmark(const string& description, size_t samples, size_t max_string_leng
             throw logic_error("sample failed, test " + get<0>(c) + " ~~ " + get<1>(c) + " %% " + to_string(get<2>(c)));
     auto bm_end = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
     cout << "[+] boyer moore:" << (bm_end - bm_start).count() << "ns" << endl;
-    cout << "[+][+] boyer_moore/simple = " <<float((bm_end - bm_start).count())/(simple_end-simple_start).count() << endl;
+    cout << "[+][+] b_m/simple = " <<float((bm_end - bm_start).count())/(simple_end-simple_start).count() << endl;
 }
 
 
+
 int main () {
-    benchmark("short str, short subStr", 10, 100, 10);
-    benchmark("long str, long subStr", 10, 100000, 100);
-    benchmark("long str, short subStr", 10, 100000, 10);
-    benchmark("long str, very short subStr", 10, 100000, 5);
+//    benchmark("short str, short subStr", 10, 100, 10);
+//    benchmark("long str, long subStr", 10, 100000, 100);
+//    benchmark("long str, short subStr", 10, 100000, 10);
+//    benchmark("long str, very short subStr", 10, 100000, 5);
+
+    benchmark("asdloip","dloip");
+    benchmark("gyhujuy","huju");
+    benchmark("yui67hv12bnoi78","7hv12b");
+    benchmark("uiop","io");
+    benchmark("uiop","i");
+    benchmark("yuijoplkjhgfdftyuio876rtfgvbnmlkpo98765rdfgvhjk","76rt");
+
+
     return 0;
 }
