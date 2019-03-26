@@ -10,43 +10,25 @@
 using  namespace std;
 
 
-int main(){
-    Tree* tree = NULL;
+int main(int argc, char* argv[]){
+    Tree tree;
+
+    srand(time(NULL));
+    for(int i=0; i<1000; i++){
+        tree.add(rand()%40000);
+    }
+
+    if(tree.search(8))
+        cout << "elem 8 found" << endl;
+    else
+        cout << "elem 8 not found " << endl;
+
+    tree.printNode();
+
+    cout << endl << tree.minElement()<< " is min elem" << endl;
+    cout << tree.maxElement()<< " is max elem" << endl;
 
 
-    for(int i = 0; i < 50; ++i)
-        tree = InsertNode(tree, rand() % 500);
 
-
-//    ofstream fout;
-//    fout.open("asd.txt");
-
-
-    PrintNode(cout, tree);
-    cout << endl;
-//    fout.close();
-
-    tree = DeleteNode(tree, 5);
-    tree = DeleteNode(tree, 2);
-    tree = DeleteNode(tree, 9);
-    tree = DeleteNode(tree, 7);
-    tree = DeleteNode(tree, 7);
-
-    Tree* search = NULL;
-    search = SearchItem(tree, 7);
-
-    if (search !=NULL) {
-        cout << "searching of 7 results" << endl;
-        cout << search->val << endl;
-    } else
-        cout << "element 7 was not found" << endl;
-
-
-    cout << "min element is " << MinElement(tree)->val << endl;
-    cout << "max element is " << MaxElement(tree)->val << endl << endl;
-
-
-    ClearNode(tree);
     return 0;
 }
-

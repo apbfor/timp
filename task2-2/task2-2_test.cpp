@@ -10,58 +10,56 @@
 
 #include "task2-2.h"
 
-Tree* tree = NULL;
-
-TEST_CASE("add elem+search"){
-    tree = InsertNode(tree, 5);
-    tree = InsertNode(tree, 52);
-
-
-    SECTION("elem is in tree") {
-        Tree* searching = NULL;
-        searching = SearchItem(tree, 5);
-        REQUIRE(searching->val == 5);
+TEST_CASE("1. Search elem + remove elem + add elem"){
+    Tree tree;
+    SECTION("search in empty tree"){
+        REQUIRE(tree.search(3)== false);
     }
+    SECTION("added and deleted"){
+        tree.add(5);
+        tree.removeElem(5);
+        REQUIRE(tree.search(5)== false);
 
-    SECTION("elem is not in tree"){
-        Tree* searching = NULL;
-        searching = SearchItem(tree, 12);
-        REQUIRE(searching == NULL);
+        tree.add(5);
+        REQUIRE(tree.search(5)== true);
     }
 }
 
-TEST_CASE("max,min elem"){
-    tree = InsertNode(tree, 5);
-    tree = InsertNode(tree, 52);
-    tree = InsertNode(tree, 123);
-    tree = InsertNode(tree, 2);
+TEST_CASE("2. Max and min elem"){
+    Tree tr;
+    tr.add(20);
+    tr.add(8);
+    tr.add(79);
+    tr.add(18);
+    tr.add(2);
+    tr.add(42);
 
-    SECTION("max elem"){
-        REQUIRE(MaxElement(tree)->val==123);
-    }
+    REQUIRE(tr.maxElement() == 79);
 
-    SECTION("min elem"){
-        REQUIRE(MinElement(tree)->val == 2);
-    }
+    REQUIRE(tr.minElement()==2);
+
 }
 
-TEST_CASE("delete elem"){
-    tree = InsertNode(tree, 5);
-    tree = InsertNode(tree, 52);
-    tree = DeleteNode(tree, 52);
-    tree = DeleteNode(tree, 5);
 
-    SECTION("elem was not in tree") {
-        Tree *searching = NULL;
-        searching = SearchItem(tree, 12);
+TEST_CASE("3. Remove from empty tree"){
+    Tree tr;
+    tr.removeElem(8);
+    tr.add(5);
+    REQUIRE(tr.search(5)== true);
+}
 
-        REQUIRE(searching == NULL);
+TEST_CASE("4. Min and Max in empty tree"){
+    Tree tr;
+    SECTION("just created"){
+        REQUIRE(tr.minElement()==-1);
+        REQUIRE(tr.maxElement()==-1);
     }
-
-    SECTION("elem was in tree"){
-        Tree *searching = NULL;
-        searching = SearchItem(tree, 12);
-
-        REQUIRE(searching == NULL);
+    SECTION("added and deleted elements"){
+        tr.add(5);
+        tr.add(7);
+        tr.removeElem(5);
+        tr.removeElem(7);
+        REQUIRE(tr.minElement()==-1);
+        REQUIRE(tr.maxElement()==-1);
     }
 }
