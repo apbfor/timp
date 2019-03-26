@@ -28,7 +28,8 @@ void benchmark(const string str, const string subStr){
     auto bm_start = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
     b_m_substring(str,subStr);
     auto bm_end = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
-    cout << "[+][+] b_m/simple = " <<float((bm_end - bm_start).count())/(simple_end-simple_start).count() << endl;
+    cout << "*** Бойера-Мура/Простейшая *** = "
+         <<float((bm_end - bm_start).count())/(simple_end-simple_start).count() << endl;
 }
 
 // генерирует кейс <строка, подстрока, позиция>, служит для быстрого заполнения списка рандомными строками/подстроками
@@ -57,7 +58,7 @@ tuple<string, string, size_t> generate_test(size_t max_string_length, size_t max
 
 
 void benchmark(const string& description, size_t samples, size_t max_string_length, size_t max_substring_length) {
-    cout << "[*] generating: " << description << endl;
+    cout << "Создаю " << description << endl;
     /* создаем вектор, содержащий кортежи формата text, substring, substring_position,
      * для того, чтобы множественные тесты были достовернее - один проходил слишком быстро и порой не отражал
      * действительное положение вещей
@@ -66,31 +67,34 @@ void benchmark(const string& description, size_t samples, size_t max_string_leng
     for (int i = 0; i < samples; ++i)
         test_cases.push_back(generate_test(max_string_length, max_substring_length));
 
-    cout << "[*] running: simple" << endl;
+    cout << "Запускаю простешую " << endl;
     auto simple_start = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
     for (auto& it: test_cases)
         if (simple_indexOf(get<0>(it),get<1>(it)) != get<2>(it))
-            throw logic_error("sample failed");
+            throw logic_error("ошибка поиска");
     auto simple_end = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
-    cout << "[+] simple:" << (simple_end - simple_start).count() << "ns" << endl;
+    cout << "Простейшая :" << (simple_end - simple_start).count() << " наносекунд" << endl;
 
-    cout << "[*] running: boyer moore" << endl;
+    cout << "Запускаю алгоритм Бойера-Мура" << endl;
     auto bm_start = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
     for (auto& c: test_cases)
         if (b_m_substring(get<0>(c),get<1>(c)) != get<2>(c))
-            throw logic_error("sample failed, test " + get<0>(c) + " ~~ " + get<1>(c) + " %% " + to_string(get<2>(c)));
+            throw logic_error("ошибка поиска, тест " + get<0>(c) + " ~~ " + get<1>(c) + " %% " + to_string(get<2>(c)));
     auto bm_end = duration_cast<nanoseconds>(system_clock::now().time_since_epoch());
-    cout << "[+] boyer moore:" << (bm_end - bm_start).count() << "ns" << endl;
-    cout << "[+][+] b_m/simple = " <<float((bm_end - bm_start).count())/(simple_end-simple_start).count() << endl;
+    cout << "Бойера - мура:" << (bm_end - bm_start).count() << " наносекунд" << endl;
+    cout << "*** Бойера-Мура/Простейшая *** = "
+         <<float((bm_end - bm_start).count())/(simple_end-simple_start).count() << endl;
 }
 
 
 
 int main () {
-//    benchmark("short str, short subStr", 10, 100, 10);
-//    benchmark("long str, long subStr", 10, 100000, 100);
-//    benchmark("long str, short subStr", 10, 100000, 10);
-//    benchmark("long str, very short subStr", 10, 100000, 5);
+    benchmark("короткая строка, короткая подстрока", 10, 100, 10);
+    benchmark("длинная строка, длинная подстрока", 10, 100000, 100);
+    benchmark("длинная строка, короткая подстрока", 10, 100000, 10);
+    benchmark("длинная строка, очень короткая подстрока", 10, 100000, 5);
+
+    //setlocale(LC_ALL, "russian");
 
     benchmark("asdloip","dloip");
     benchmark("gyhujuy","huju");
@@ -98,7 +102,8 @@ int main () {
     benchmark("uiop","io");
     benchmark("uiop","i");
     benchmark("yuijoplkjhgfdftyuio876rtfgvbnmlkpo98765rdfgvhjk","76rt");
-
+    benchmark("ПриветМир","Мир");
+    cout << simple_indexOf("ПриветМир","Мир") << endl;
 
     return 0;
 }

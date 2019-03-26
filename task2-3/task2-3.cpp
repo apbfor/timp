@@ -14,9 +14,6 @@
 #include <map>
 #include <iostream>
 
-//для отладки закомментировать
-#define NODEBUG
-
 using namespace std;
 
 size_t simple_indexOf(const string &str, const string &subStr) {
@@ -59,37 +56,10 @@ size_t b_m_substring(const string &str, const string &subStr) {
     }
 
 
-#ifndef NODEBUG
-    cout << "~~~ BAD SYMBOLS ~~~" << endl;
-	for (auto& t: subStr)
-		cout << "\t" << t;
-	cout << endl;
-	for ( size_t i = 0; i < subStr.size(); ++i)
-		cout << "\t" << bad_symbols[subStr[i]];
-	cout << endl << endl;
-
-	cout << "~~~ SUFFIX TABLE ~~~" << endl;
-	for (auto& t: subStr)
-		cout << "\t" << t;
-	cout << endl;
-	for ( size_t i = 0; i < subStr.size(); ++i)
-		cout << "\t" << suffix_shift[subStr.size() - i - 1];
-	cout << endl << endl;
-#endif
-
     for (size_t ending = subStr.size() - 1; ending < str.size(); ) {
-#ifndef NODEBUG
-        if (ending < 100) {
-			cout << str.substr(0, 100) << endl;
-			cout << string(ending, ' ') << "^ -- ending" << endl;
-		}
-#endif
+
         for (size_t matching = 0; matching < subStr.size(); ++matching) {
-#ifndef NODEBUG
-            if (ending < 100) {
-				cout << string(ending - matching, ' ') << "^ -- matching" << endl;
-			}
-#endif
+
             // если очередной символ не совпал, выбираем на сколько символов мы можем сместиться
             if (str[ending - matching] != subStr[subStr.size() - matching - 1]) {
                 size_t bad = bad_symbols[str[ending - matching]];
