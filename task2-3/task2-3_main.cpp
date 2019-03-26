@@ -89,6 +89,12 @@ void benchmark(const string& description, size_t samples, size_t max_string_leng
 
 
 int main () {
+//    for (int i=0; i<10; ++i){
+//        cout << i << ' ';
+//    }
+//    cout << endl;
+
+
     benchmark("короткая строка, короткая подстрока", 10, 100, 10);
     benchmark("длинная строка, длинная подстрока", 10, 100000, 100);
     benchmark("длинная строка, короткая подстрока", 10, 100000, 10);
