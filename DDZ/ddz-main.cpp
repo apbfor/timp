@@ -9,7 +9,10 @@
 using namespace std;
 
 
-#define tonum(c) (c >= 'A' && c <= 'Z' ? c - 'A' : c - 'a' + 26)
+int tonum(char c){
+    int x = c - '0';
+    return x;
+}
 
 int mod(int a,int p,int m)
 {
