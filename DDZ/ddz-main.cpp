@@ -7,17 +7,12 @@
 #include <math.h>
 #include "ddz.h"
 #include <random>
-#include <algorithm>
-#include <tuple>
-#include <chrono>
 #include "cstdio"
-#include <ctime>
 #include <list>
 #include <string>
 #include <time.h>
 
 using namespace std;
-using namespace std::chrono;
 
 static const char aplphabet[] =
         "0123456789"

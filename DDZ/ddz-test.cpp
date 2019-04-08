@@ -11,7 +11,7 @@ using namespace std;
 #include "../catch.hpp"
 
 
-TEST_CASE("Rabin-Karp","2") {
+TEST_CASE("Rabin-Karp") {
     srand(time(NULL));
     string T;
     string P;
@@ -46,9 +46,3 @@ TEST_CASE("Rabin-Karp","2") {
         REQUIRE(P == T.substr(vec[i], m));
     }
 }
-
-
-//русский язык не поддерживается (по крайней мере, пока что)
-//TEST_CASE("9. rabin_karp_matcher", "поддержка русского языка"){
-//    REQUIRE(rabin_karp_matcher("конфета","фета") == 3);
-//}
