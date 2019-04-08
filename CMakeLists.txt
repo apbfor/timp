@@ -28,5 +28,5 @@ add_executable(task2-4_main task2-4/task2-4.cpp task2-4/task2-4_main.cpp)
 
 
 #ddz
-add_executable(ddz_test DDZ/ddz.cpp DDZ/ddz-test.cpp DDZ/ddz.h)
-add_executable(ddz_main DDZ/ddz.cpp DDZ/ddz-main.cpp DDZ/ddz.h)
+add_executable(ddz_test DDZ/RKMatcher.cpp DDZ/ddz-test.cpp DDZ/RKMatcher.h)
+add_executable(ddz_main DDZ/RKMatcher.cpp DDZ/ddz-main.cpp DDZ/RKMatcher.h)

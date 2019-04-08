@@ -5,7 +5,7 @@
 #include <iostream>
 #include <stdio.h>
 #include <math.h>
-#include "ddz.h"
+#include "RKMatcher.h"
 #include <random>
 #include "cstdio"
 #include <list>
@@ -58,13 +58,12 @@ void benchmark(int size_str, int size_substr){
 
 int main(int argc, char* argv[]){
     //srand(time((NULL)));
-    benchmark(100,50);
-    benchmark(1000,500);
-    benchmark(10000,5000);
-    benchmark(100000,50000);
-    benchmark(200000,50000);
-    benchmark(1000000,500000);
-    benchmark(10000000,500000);
+
+    benchmark(2000000,50);
+    benchmark(3000000,50);
+    benchmark(4000000,50);
+    benchmark(5000000,50);
+
 
     return 0;
 }
