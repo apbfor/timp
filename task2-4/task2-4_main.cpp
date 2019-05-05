@@ -3,57 +3,18 @@
 //
 #include <bits/stdc++.h>
 #include <fstream>
+#include "task2-4.h"
 using namespace std;
 
-struct MinHeapNode
-{
-    // The element to be stored
-    int element;
 
-    // index of the array from which the element is taken
-    int i;
-};
 
-// Prototype of a utility function to swap two min heap nodes
-void swap(MinHeapNode* x, MinHeapNode* y);
 
-// A class for Min Heap
-class MinHeap
-{
-    MinHeapNode* harr; // pointer to array of elements in heap
-    int heap_size;     // size of min heap
 
-public:
-    // Constructor: creates a min heap of given size
-    MinHeap(MinHeapNode a[], int size);
-
-    // to heapify a subtree with root at given index
-    void MinHeapify(int);
-
-    // to get index of left child of node at index i
-    int left(int i) { return (2 * i + 1); }
-
-    // to get index of right child of node at index i
-    int right(int i) { return (2 * i + 2); }
-
-    // to get the root
-    MinHeapNode getMin() {  return harr[0]; }
-
-    // to replace root with new node x and heapify()
-    // new root
-    void replaceMin(MinHeapNode x)
-    {
-        harr[0] = x;
-        MinHeapify(0);
-    }
-};
-
-// Constructor: Builds a heap from a given array a[]
-// of given size
+// Конструктор: Создает кучу из полученного массива, полученного размера
 MinHeap::MinHeap(MinHeapNode a[], int size)
 {
     heap_size = size;
-    harr = a; // store address of array
+    harr = a; // хранит адрес массива
     int i = (heap_size - 1) / 2;
     while (i >= 0)
     {
@@ -62,9 +23,8 @@ MinHeap::MinHeap(MinHeapNode a[], int size)
     }
 }
 
-// A recursive method to heapify a subtree with root
-// at given index. This method assumes that the
-// subtrees are already heapified
+// Рекурсивный метод приведения поддерева с корнем по полученному индексу. Метод предполагает,
+// что поддеревья уже приведены к нормальному виду
 void MinHeap::MinHeapify(int i)
 {
     int l = left(i);
@@ -81,7 +41,7 @@ void MinHeap::MinHeapify(int i)
     }
 }
 
-// A utility function to swap two elements
+//Своп - функция для двух элементов
 void swap(MinHeapNode* x, MinHeapNode* y)
 {
     MinHeapNode temp = *x;
@@ -89,28 +49,27 @@ void swap(MinHeapNode* x, MinHeapNode* y)
     *y = temp;
 }
 
-// Merges two subarrays of arr[].
-// First subarray is arr[l..m]
-// Second subarray is arr[m+1..r]
+// Слияние двух подмассивов массива arr[].
+// где arr[l..m] - первый подмассив, а arr[m+1..r] - второй подмассив
 void merge(int arr[], int l, int m, int r)
 {
     int i, j, k;
     int n1 = m - l + 1;
     int n2 = r - m;
 
-    /* create temp arrays */
+    //создаем временные массивы
     int L[n1], R[n2];
 
-    /* Copy data to temp arrays L[] and R[] */
+    //копируем данные во временные массивы L[] R[]
     for(i = 0; i < n1; i++)
         L[i] = arr[l + i];
     for(j = 0; j < n2; j++)
         R[j] = arr[m + 1 + j];
 
-    /* Merge the temp arrays back into arr[l..r]*/
-    i = 0; // Initial index of first subarray
-    j = 0; // Initial index of second subarray
-    k = l; // Initial index of merged subarray
+    // Сливаем обратно два массива в  arr[l..r]
+    i = 0; // Инициализируем индекс первого подмассива
+    j = 0; // Инициализируем индекс второго подмассива
+    k = l; // Инициализируем индекс подмассива после слияния
     while (i < n1 && j < n2)
     {
         if (L[i] <= R[j])
@@ -119,28 +78,24 @@ void merge(int arr[], int l, int m, int r)
             arr[k++] = R[j++];
     }
 
-    /* Copy the remaining elements of L[], if there
-       are any */
+
+    //если в L[] остались элементы, копируем их тоже
     while (i < n1)
         arr[k++] = L[i++];
 
-    /* Copy the remaining elements of R[], if there
-       are any */
+    //если в R[] остались элементы, копируем их тоже
     while(j < n2)
         arr[k++] = R[j++];
 }
 
-/* l is for left index and r is right index of the
-   sub-array of arr to be sorted */
+// l - левый индекс и r - правый индекс подмассива того массива, который должен быть сортирован
 void mergeSort(int arr[], int l, int r)
 {
     if (l < r)
     {
-        // Same as (l+r)/2, but avoids overflow for
-        // large l and h
         int m = l + (r - l) / 2;
 
-        // Sort first and second halves
+        // сортируем обе половины
         mergeSort(arr, l, m);
         mergeSort(arr, m + 1, r);
 
@@ -153,14 +108,13 @@ FILE* openFile(char* fileName, char* mode)
     FILE* fp = fopen(fileName, mode);
     if (fp == NULL)
     {
-        perror("Error while opening the file.\n");
+        perror("Ошибка при открытии файла.\n");
         exit(EXIT_FAILURE);
     }
     return fp;
 }
 
-// Merges k sorted files.  Names of files are assumed
-// to be 1, 2, 3, ... k
+// Сливаем k сортированных файлов.  Имена файлов 1,2...k
 void mergeFiles(char *output_file, int n, int k)
 {
     FILE* in[k];
@@ -168,10 +122,10 @@ void mergeFiles(char *output_file, int n, int k)
     {
         char fileName[2];
 
-        // convert i to string
+        // переводим i в string
         snprintf(fileName, sizeof(fileName), "%d", i);
 
-        // Open output files in read mode.
+        // Открываем output файлы в режиме для чтения
         in[i] = openFile(fileName, "r");
     }
 
