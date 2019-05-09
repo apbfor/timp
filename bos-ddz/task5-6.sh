@@ -7,5 +7,6 @@ then
 	exit 1
 fi
 file=$1
-cat "$file" | grep -o '[^[:space:]]^[[:upper:] and [:lower:]]*q^[[:upper:] and [:lower:]][^[:space:]]*' | wc -l
+cat "$file" | tr ' ' '\n' | sed '/[[:punct:] [:digit:]]/d' | grep -o '[^[:space:]]*q[^[:space:]]*' | wc -l
 exit 0
+

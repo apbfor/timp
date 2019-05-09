@@ -12,7 +12,7 @@ do
 	file=`find / -name "string.h" 2>/dev/null | sed -n $i,${i}p`
 	info=`ls -l $file`
 	#echo "info: $info"
-	owner=`echo "$info" | cut --fields=3 --delimiter='ls '`
+	owner=`echo "$info" | cut --fields=3 --delimiter=' '`
 	echo -n "$file"
 	echo " owner is $owner"
 done 
