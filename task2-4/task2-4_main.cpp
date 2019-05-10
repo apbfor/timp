@@ -132,74 +132,68 @@ void mergeFiles(char *output_file, int n, int k)
     // FINAL OUTPUT FILE
     FILE *out = openFile(output_file, "w");
 
-    // Create a min heap with k heap nodes.  Every heap node
-    // has first element of scratch output file
+    // Создаем min heap с k узлами. Каждый узел имеет первый элемент из выходного файла
     MinHeapNode* harr = new MinHeapNode[k];
     int i;
     for (i = 0; i < k; i++)
     {
-        // break if no output file is empty and
-        // index i will be no. of input files
+        // выйдет из цикла, если какой то из файлов не пуст, индекс i будет номером входного файла
         if (fscanf(in[i], "%d ", &harr[i].element) != 1)
             break;
 
-        harr[i].i = i; // Index of scratch output file
+        harr[i].i = i; // Индекс взятия из выходного файла
     }
-    MinHeap hp(harr, i); // Create the heap
+    MinHeap hp(harr, i); // Создаем кучу
 
     int count = 0;
 
-    // Now one by one get the minimum element from min
-    // heap and replace it with next element.
-    // run till all filled input files reach EOF
+    // По одному берем минимальный элемент из min heap и заменяем его со следующим элементом.
+    // запускаем для всех входных файлов, пока не достигнем конца
     while (count != i)
     {
-        // Get the minimum element and store it in output file
+        // Берем минимальный элемент и сохраняем его в выходном файле
         MinHeapNode root = hp.getMin();
         fprintf(out, "%d ", root.element);
 
-        // Find the next element that will replace current
-        // root of heap. The next element belongs to same
-        // input file as the current min element.
+        // Ищем следующий элемент, который заменит текущий корень кучи. Следующий элемент принадлежит тому же входному файлу
+        // как текущий минимальный элемент.
         if (fscanf(in[root.i], "%d ", &root.element) != 1 )
         {
             root.element = INT_MAX;
             count++;
         }
 
-        // Replace root with next element of input file
+        // заменяем корень текущим элементом входного файла
         hp.replaceMin(root);
     }
 
-    // close input and output files
+    // закрываем входные и выходной файлы
     for (int i = 0; i < k; i++)
         fclose(in[i]);
 
     fclose(out);
 }
 
-// Using a merge-sort algorithm, create the initial runs
-// and divide them evenly among the output files
+// Используя алгоритм сортировки слиянием, создаем начальный запуск и делим его на все среди выходных файлов
 void createInitialRuns(char *input_file, int run_size,
                        int num_ways)
 {
-    // For big input file
+    // для большого входного файла
     FILE *in = openFile(input_file, "r");
 
-    // output scratch files
+    // выходные файлы
     FILE* out[num_ways];
     char fileName[2];
     for (int i = 0; i < num_ways; i++)
     {
-        // convert i to string
+        // переводим номер в строку
         snprintf(fileName, sizeof(fileName), "%d", i);
 
-        // Open output files in write mode.
+        // открываем выходные файлы в режиме для записи
         out[i] = openFile(fileName, "w");
     }
 
-    // allocate a dynamic array large enough
-    // to accommodate runs of size run_size
+    // Выделяем динамическйи массив достаточного размера, чтобы вмещать запуск размера run_size
     int* arr = (int*)malloc(run_size * sizeof(int));
 
     bool more_input = true;
@@ -218,46 +212,44 @@ void createInitialRuns(char *input_file, int run_size,
             }
         }
 
-        // sort array using merge sort
+        // сортируем массив, используя сортировку слиянием
         mergeSort(arr, 0, i - 1);
 
-        // write the records to the appropriate scratch output file
-        // can't assume that the loop runs to run_size
-        // since the last run's length may be less than run_size
+        // записываем в подходящий выходной файл
         for (int j = 0; j < i; j++)
             fprintf(out[next_output_file], "%d ", arr[j]);
 
         next_output_file++;
     }
 
-    // close input and output files
+    // закрываем выходные и входной файлы
     for (int i = 0; i < num_ways; i++)
         fclose(out[i]);
 
     fclose(in);
 }
 
-// For sorting data stored on disk
+// для сортировки хранящихся на диске данных
 void externalSort(char* input_file,  char *output_file,
                   int num_ways, int run_size)
 {
-    // read the input file, create the initial runs,
-    // and assign the runs to the scratch output files
+    // читаем входной файл, создаем начальный запуск и назначаем для запуска на выходных файлах
+
     createInitialRuns(input_file, run_size, num_ways);
 
-    // Merge the runs using the K-way merging
+    // сливаем запуски
     mergeFiles(output_file, run_size, num_ways);
 }
 
 
-// Driver program to test above
+// тестовая программа для обзора возможностей
 int main()
 {
-    // No. of Partitions of input file.
-    int num_ways = 10;
+    // количество частей каждого файла
+    int num_ways = 100;
 
-    // The size of each partition
-    int run_size = 1000;
+    // размер каждой части
+    int run_size = 100000;
 
     char input_file[] = "/home/apbfor/Desktop/sort/input.txt";
     char output_file[] = "/home/apbfor/Desktop/sort/output.txt";
@@ -266,18 +258,14 @@ int main()
 
     srand(time(NULL));
 
-//    ofstream fout = ofstream("input11.txt", ofstream::out);
-//    fout << "hello here" <<endl;
-//    fout.close();
 
-    // generate input
+    // генерируем входной файл
     for (int i = 0; i < num_ways * run_size; i++)
-        fprintf(in, "%d ", rand()%500);
+        fprintf(in, "%d ", rand()%50001);
 
     fclose(in);
 
-    externalSort(input_file, output_file, num_ways,
-                 run_size);
+    externalSort(input_file, output_file, num_ways, run_size);
 
     return 0;
 }
