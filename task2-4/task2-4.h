@@ -1,12 +1,8 @@
 //
 // Created by apbfor on 22.03.19.
 //
-
-#ifndef TEST_EMPTY_TASK2_4_H
-#define TEST_EMPTY_TASK2_4_H
-
-#endif //TEST_EMPTY_TASK2_4_H
-
+#include <cstdio>
+#include <iostream>
 
 struct MinHeapNode
 {
@@ -17,6 +13,11 @@ struct MinHeapNode
 
 //своп-функция для двух объектов
 void swap(MinHeapNode* x, MinHeapNode* y);
+
+FILE* openFile(char* fileName, char* mode);
+
+void externalSort(char* input_file,  char *output_file, int num_ways, int run_size);
+
 //класс для хранения minHeap
 class MinHeap
 {
