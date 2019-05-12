@@ -1,0 +1,3 @@
+echo -n $(date) > task2-1.txt
+echo -n ' ' >> task2-1.txt
+echo -n $(whoami) >> task2-1.txt

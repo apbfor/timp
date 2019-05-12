@@ -19,8 +19,7 @@ FILE* openFile(char* fileName, char* mode);
 void externalSort(char* input_file,  char *output_file, int num_ways, int run_size);
 
 //класс для хранения minHeap
-class MinHeap
-{
+class MinHeap {
     MinHeapNode* harr; //указатель на массив элементов в куче
     int heap_size;     //размер кучи
 
@@ -42,8 +41,7 @@ public:
 
     // заменяем корень новым узлом и приводим к необходимому виду
     // new root
-    void replaceMin(MinHeapNode x)
-    {
+    void replaceMin(MinHeapNode x) {
         harr[0] = x;
         MinHeapify(0);
     }

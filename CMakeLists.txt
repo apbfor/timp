@@ -10,25 +10,25 @@ add_executable(example_main example/main.cpp example/example.cpp example/example
 
 
 #task2-1
-add_executable(2.1_main task2-1/task2-1_main.cpp task2-1/task2-1.cpp task2-1/task2-1.h task2-5/task2-5.cpp task2-5/task2-5.h task2-5/task2-5_main.cpp task2-5/task2-5_test.cpp)
-add_executable(2.1_test task2-1/task2-1_test.cpp task2-1/task2-1.cpp task2-1/task2-1.h)
+add_executable(2.1_main task2-1/task2-1.cpp task2-1/task2-1.h task2-1/main.cpp)
+add_executable(2.1_test task2-1/task2-1.cpp task2-1/task2-1.h)
 
 
 #task2-2
-add_executable(2.2_main task2-2/task2-2_main.cpp task2-2/task2-2.cpp task2-2/task2-2.h)
-add_executable(2.2_test task2-2/task2-2_test.cpp task2-2/task2-2.cpp task2-2/task2-2.h)
+add_executable(2.2_main task2-2/task2-2.cpp task2-2/task2-2.h)
+add_executable(2.2_test task2-2/task2-2.cpp task2-2/task2-2.h)
 
 # task2-3
-add_executable(task2-3_test task2-3/task2-3.cpp task2-3/task2-3_test.cpp task2-3/task2-3.h)
-add_executable(task2-3_main task2-3/task2-3.cpp task2-3/task2-3_main.cpp task2-3/task2-3.h)
+add_executable(task2-3_test task2-3/task2-3.cpp task2-3/tests.cpp)
+add_executable(task2-3_main task2-3/task2-3.cpp task2-3/main.cpp)
 
 # task2-4
-add_executable(task2-4_test task2-4/task2-4.cpp task2-4/task2-4_test.cpp task2-4/task2-4.h)
-add_executable(task2-4_main task2-4/task2-4.cpp task2-4/task2-4_main.cpp task2-4/task2-4.h)
+add_executable(task2-4_test task2-4/task2-4.cpp task2-4/tests.cpp)
+add_executable(task2-4_main task2-4/task2-4.cpp task2-4/main.cpp)
 
 #task2-5
-add_executable(task2-5_test task2-5/task2-5.cpp task2-5/task2-5_test.cpp task2-5/task2-5.h)
-add_executable(task2-5_main task2-5/task2-5.cpp task2-5/task2-5_main.cpp task2-5/task2-5.h)
+add_executable(task2-5_test task2-5/task2-5.cpp task2-5/tests.cpp)
+add_executable(task2-5_main task2-5/task2-5.cpp task2-5/main.cpp)
 
 #ddz
 add_executable(ddz_test DDZ/RKMatcher.cpp DDZ/ddz-test.cpp DDZ/RKMatcher.h)

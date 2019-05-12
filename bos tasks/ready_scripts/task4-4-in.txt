@@ -1,0 +1,11 @@
+count=$(wc -l < /etc/passwd)
+echo "in system are" $count "users"
+
+for ((i=1; i<=count; i++))
+do 
+nameOfUser=$(cat /etc/passwd | sed -n $i,${i}p | cut --fields=1 --delimiter=:)
+
+touch $nameOfUser.path
+path=$(cat /etc/passwd | sed -n $i,${i}p | cut --fields=7 --delimiter=:)
+echo $path>$nameOfUser.path
+dones
