@@ -21,6 +21,7 @@ class Graph
     void DFSUtil(int v, bool visited[]);
 public:
     Graph(int V); // Constructor
+    Graph(int m[]);
     void addEdge(int v, int w);
     void connectedComponents();
 };
@@ -53,12 +54,19 @@ void Graph::DFSUtil(int v, bool visited[])
     visited[v] = true;
     cout << v << " ";
 
-    // Recur for all the vertices
-    // adjacent to this vertex
-    list<int>::iterator i;
-    for(i = adj[v].begin(); i != adj[v].end(); ++i)
-        if(!visited[*i])
-            DFSUtil(*i, visited);
+    // Recur for all the vertices adjacent to this vertex
+    for(auto it : adj[v])
+        if(!visited[it])
+            DFSUtil(it, visited);
+
+//    list<int>::iterator i;
+//    for(i = adj[v].begin(); i != adj[v].end(); ++i)
+//        if(!visited[*i])
+//            DFSUtil(*i, visited);
+}
+
+Graph::Graph(int m[]){
+
 }
 
 Graph::Graph(int V)
