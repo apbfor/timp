@@ -31,7 +31,7 @@ add_executable(task2-5_test task2-5/task2-5.cpp task2-5/tests.cpp)
 add_executable(task2-5_main task2-5/task2-5.cpp task2-5/main.cpp)
 
 #testing
-add_executable(task2-5_new task2-5/newww.cpp)
+add_executable(task2-5_new task2-5/1.cpp)
 
 #task2-6
 add_executable(task2-6_test task2-6/task2-6.cpp task2-6/tests.cpp)
