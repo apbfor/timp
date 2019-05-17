@@ -13,6 +13,7 @@ using namespace std;
 
 TEST_CASE("1. Check adj list") {
     Graph b({4,7,8,9,11,15}, { {4,7}, {7,9}, {11,15} });
-    vector<int> requires = {4,7,9,8,11,15};
-    REQUIRE(b.onlyfortests == requires);
+    vector<int> vec1 = {4,7,9,8,11,15};
+    b.connectedComponents();
+    REQUIRE(b.onlyfortests == vec1);
 }

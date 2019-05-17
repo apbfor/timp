@@ -12,8 +12,12 @@
 
 using  namespace std;
 
+
+// Graph class represents a undirected graph using adjacency list representation
 class Graph {
     vector<int> vertices;
+    int max = 0;
+
     int V; // No. of vertices
 
     // Pointer to an array containing adjacency lists
