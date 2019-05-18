@@ -15,10 +15,10 @@ using  namespace std;
 
 // Graph class represents a undirected graph using adjacency list representation
 class Graph {
-    vector<int> vertices;
+    vector<int> vertices; //for my comfort
     int max = 0;
 
-    int V; // No. of vertices
+    int V; // No. of vertices, for setting up graph
 
     // Pointer to an array containing adjacency lists
     list<int> *adj;

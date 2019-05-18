@@ -25,7 +25,7 @@ int main() {
     g.addEdge(4, 5);
 
     try {
-        Graph b({4,7,8,9,11,15}, { {4,7}, {7,9}, {15,11} });
+        Graph b({4,7,8,9,11,15,56,6}, { {4,7}, {7,9}, {15,11} });
         cout << "Following are connected components \n";
         b.connectedComponents();
     }
