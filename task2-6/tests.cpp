@@ -23,5 +23,7 @@ TEST_CASE("1. Check path") {
     a.addEdge(4,5,6);
     a.addEdge(5,6,9);
     a.dijkstra();
-    REQUIRE( == pathForTests);
+    a.printPath(6);
+    vector<int> pathForTests = {1,3,6};
+    REQUIRE(a.getPath() == pathForTests);
 }
