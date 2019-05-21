@@ -15,9 +15,13 @@ void Graph::connectedComponents() {
         if (visited[v] == false) {
             // print all reachable vertices from v
             DFSUtil(v, visited);
-            for(auto it : vertices)
-                if(it == v)
+            for (auto it : vertices)
+                if (it == v) {
+                    connected.push_back(util);
                     cout << endl;
+                    util.clear();
+                }
+
         }
     }
 }
@@ -44,6 +48,7 @@ void Graph::DFSUtil(int v, bool visited[]) {
     for (auto it : vertices)
         if (it == v) {
             cout << v << ' ';
+            util.push_back(v);
             onlyfortests.push_back(v);
         }
     // Recur for all the vertices adjacent to this vertex
